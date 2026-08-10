@@ -90,6 +90,10 @@
     'usa.gov', 'whitehouse.gov', 'congress.gov', 'irs.gov', 'nasa.gov',
     'nih.gov', 'cdc.gov', 'fda.gov', 'who.int', 'un.org', 'europa.eu',
 
+
+    // Music
+    'spotify.com', 'genius.com'
+    
     // Utility
     'paypal.com', 'stripe.com', 'mozilla.org', 'firefox.com', 'opera.com',
     'proton.me', 'protonmail.com', 'signal.org', 'wordpress.com', 'wordpress.org',
