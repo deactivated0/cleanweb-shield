@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CleanWeb Shield | Smart Family Safeguard & Content Filter
 // @namespace    https://github.com/deactivated0/
-// @version      1.0
+// @version      1.1
 // @description  Intelligent family-safe content filter, adult content blocker, safe-browsing shield with heuristic scoring and auto-redirect.
 // @author       https://github.com/deactivated0/
 // @match        *://*/*
@@ -92,7 +92,9 @@
 
 
     // Music
-    'spotify.com', 'genius.com'
+'spotify.com', 'open.spotify.com', 'genius.com', 'music.apple.com', 'music.youtube.com', 'soundcloud.com', 'bandcamp.com', 'tidal.com', 'deezer.com', 'music.amazon.com', 'pandora.com', 'qobuz.com', 
+    'audiomack.com', 'musixmatch.com', 'last.fm', 'discogs.com', 'musicbrainz.org', 'rateyourmusic.com', 'allmusic.com', 'beatport.com', 'traxsource.com', 'iheart.com', 'tunein.com', 'azlyrics.com', 
+    'songlyrics.com', 'setlist.fm', 'distrokid.com', 'tunecore.com', 'cdbaby.com', 'splice.com', 'looperman.com', 'music.yandex.ru', 'y.qq.com', 'music.163.com', 'anghami.com', 'jiosaavn.com', 'gaana.com'
     
     // Utility
     'paypal.com', 'stripe.com', 'mozilla.org', 'firefox.com', 'opera.com',
