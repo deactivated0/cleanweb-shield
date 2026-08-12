@@ -34,8 +34,8 @@
   const MAX_PAGE_TEXT = 28000;
 
   const SAFE_HOSTS =
-    '|wikipedia.org|wikimedia.org|wikidata.org|wiktionary.org|wikisource.org|wikiquote.org|wikibooks.org|wikiversity.org|britannica.com|encyclopedia.com|merriam-webster.com|dictionary.com|thesaurus.com|etymonline.com|gutenberg.org|openlibrary.org|worldcat.org|' +
-    'khanacademy.org|coursera.org|edx.org|udemy.com|futurelearn.com|brilliant.org|codecademy.com|freecodecamp.org|duolingo.com|wolframalpha.com|quizlet.com|openstax.org|ck12.org|edutopia.org|ted.com|ocw.mit.edu|' +
+    '|wikipedia.org|wikimedia.org|wikidata.org|wiktionary.org|4chan.org|wikisource.org|wikiquote.org|wikibooks.org|wikiversity.org|britannica.com|encyclopedia.com|merriam-webster.com|dictionary.com|thesaurus.com|etymonline.com|gutenberg.org|openlibrary.org|worldcat.org|' +
+    'khanacademy.org|coursera.org|edx.org|udemy.com|reddit.com|futurelearn.com|brilliant.org|codecademy.com|freecodecamp.org|duolingo.com|wolframalpha.com|quizlet.com|openstax.org|ck12.org|edutopia.org|ted.com|ocw.mit.edu|' +
     'arxiv.org|jstor.org|nature.com|science.org|cell.com|sciencedirect.com|springer.com|wiley.com|plos.org|biorxiv.org|medrxiv.org|researchgate.net|semanticscholar.org|crossref.org|doi.org|' +
     'mit.edu|stanford.edu|harvard.edu|berkeley.edu|cmu.edu|caltech.edu|princeton.edu|yale.edu|columbia.edu|cornell.edu|ox.ac.uk|cam.ac.uk|imperial.ac.uk|ucl.ac.uk|ethz.ch|epfl.ch|ac.uk|ac.jp|ac.in|ac.nz|edu.au|edu.cn|edu.in|edu.tr|edu.iq|' +
     'nih.gov|cdc.gov|fda.gov|nasa.gov|noaa.gov|nist.gov|nsf.gov|loc.gov|usa.gov|whitehouse.gov|congress.gov|irs.gov|who.int|un.org|unesco.org|unicef.org|europa.eu|gov.uk|service.gov.uk|canada.ca|gc.ca|australia.gov.au|gov.au|gov.br|gov.in|go.jp|gov.cn|gov.tr|gov.iq|gov.sa|gov.ae|gov.kr|gov.sg|gov.nz|gob.es|gob.mx|gouv.fr|bund.de|gouvernement.fr|elysee.fr|' +
