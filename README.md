@@ -1,164 +1,113 @@
-# 🛡️ CleanWeb Shield | Smart Family Safeguard & Adult Content Blocker
+# 🛡️ CleanWeb Shield
 
-> **The Most Advanced, Intelligent, & Lightweight Safe Browsing & Family Protection Userscript**  
-> Automatically filters adult content, NSFW websites, explicit chatrooms, malware domains, and obfuscated text across the web in real-time. Designed for productivity, focus, and family safety.
+> A lightweight family-safety userscript that detects and redirects adult or explicit webpages using domain, URL, title, metadata, image-text, and visible-content signals.
 
----
+[![Install CleanWeb Shield](https://img.shields.io/badge/Install_CleanWeb_Shield-2ea44f?style=for-the-badge&logo=tampermonkey&logoColor=white)](https://raw.githubusercontent.com/deactivated0/cleanweb-shield/main/p.user.js)
+[![GitHub stars](https://img.shields.io/github/stars/deactivated0/cleanweb-shield?style=for-the-badge&color=gold)](https://github.com/deactivated0/cleanweb-shield/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-## ⚡ Quick Install
+## ⚡ Quick install
 
-Click the button below to instantly install **CleanWeb Shield** into your userscript manager (*Tampermonkey*, *ScriptCat*, *Violentmonkey*, or *Greasemonkey*):
+1. Install [Tampermonkey](https://www.tampermonkey.net/), [Violentmonkey](https://violentmonkey.github.io/), [ScriptCat](https://scriptcat.org/), or another compatible userscript manager.
+2. Open the [direct userscript link](https://raw.githubusercontent.com/deactivated0/cleanweb-shield/main/p.user.js).
+3. Confirm the installation in your userscript manager.
 
-<p align="center">
-  <a href="https://raw.githubusercontent.com/deactivated0/cleanweb-shield/main/p.user.js">
-    <img src="https://img.shields.io/badge/🚀_CLICK_HERE_TO_INSTALL_CLEANWEB_SHIELD-2ea44f?style=for-the-badge&logo=tampermonkey&logoColor=white" alt="Install CleanWeb Shield Userscript" width="650" />
-  </a>
-</p>
+> If the raw link opens as plain text, create a new userscript, paste the contents of `p.user.js`, and save it.
 
-<p align="center">
-  <a href="https://raw.githubusercontent.com/deactivated0/cleanweb-shield/main/p.user.js"><strong>Direct Script Link (p.user.js)</strong></a> • 
-  <a href="https://github.com/deactivated0/cleanweb-shield"><strong>GitHub Repository</strong></a>
-</p>
+## 🌟 Features
 
----
+- **Early domain and URL checks:** Runs at `document-start` and can block known adult domains, risky domain patterns, explicit URL paths, and the `.xxx`, `.porn`, `.sex`, and `.adult` TLDs before page-content scanning.
+- **Weighted content detection:** Scores the page title, URL, selected metadata, image `alt` and `title` attributes, and a bounded section of visible text.
+- **Layered host handling:** Uses a strict safe allowlist for low-risk reference, government, education, medical, and developer sites, plus a trusted-site tier that still checks user-generated content and explicit URLs.
+- **Multilingual detection:** Covers common explicit terms in English, Arabic, Kurdish, Persian, Chinese, Japanese, Korean, Russian, Turkish, Hindi, Indonesian, Vietnamese, and several European languages.
+- **Obfuscation detection:** Normalizes Unicode, common leetspeak, punctuation, spacing, and repeated letters before scoring.
+- **SPA support:** Rescans after supported single-page navigation events without continuous polling.
+- **Dynamic-page protection:** Uses short-lived, debounced `MutationObserver` checks and disconnects observers automatically.
+- **Temporary blacklist:** Stores confirmed blocked hosts locally for 30 days, avoiding repeated expensive scans.
+- **Private and dependency-free:** Runs locally, uses no external libraries, sends no telemetry, and requests only the storage and URL-change permissions it needs.
+- **Low-resource design:** Uses bounded text extraction, grouped regular expressions, early exits, cached host classification, debounced scans, and no permanent interval.
 
-<p align="center">
-  <a href="https://raw.githubusercontent.com/deactivated0/cleanweb-shield/main/p.user.js">
-    <img src="https://img.shields.io/badge/Install_Script-Direct_Link-success?style=for-the-badge&logo=tampermonkey" alt="Install Button" />
-  </a>
-  <a href="https://github.com/deactivated0/cleanweb-shield/stargazers">
-    <img src="https://img.shields.io/github/stars/deactivated0/cleanweb-shield?style=for-the-badge&color=gold" alt="GitHub Stars" />
-  </a>
-  <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License" />
-  </a>
-  <a href="https://www.tampermonkey.net/">
-    <img src="https://img.shields.io/badge/Tampermonkey-Compatible-darkgreen?style=for-the-badge&logo=tampermonkey" alt="Tampermonkey" />
-  </a>
-  <a href="https://scriptcat.org/">
-    <img src="https://img.shields.io/badge/ScriptCat-Compatible-orange?style=for-the-badge" alt="ScriptCat" />
-  </a>
-  <a href="https://violentmonkey.github.io/">
-    <img src="https://img.shields.io/badge/Violentmonkey-Compatible-purple?style=for-the-badge" alt="Violentmonkey" />
-  </a>
-</p>
+## 🧠 How it works
 
----
-
-## 🌟 Why Choose CleanWeb Shield?
-
-**CleanWeb Shield** is engineered from the ground up to keep your browser free from explicit content, dangerous adult TLDs, and hidden adult chat overlays without slowing down your internet speed or compromising your privacy.
-
-### 🛡️ Key Features
-
-- ⚡ **Zero-Latency `document-start` Execution**: Intercepts and block explicit sites **before** images, text, or layout render to prevent unintended exposure.
-- 🧠 **Smart Heuristic Scoring Engine**: Evaluates page title, URL paths, meta descriptors, and DOM text density to detect adult material accurately.
-- 🔏 **Evasive Obfuscation & Leetspeak Protection**: Unmasks sneaky typosquatting, leetspeak text replacement, and hidden chatroom overlays.
-- 🌐 **Dangerous TLD Shielding**: Blocks high-risk adult top-level domains (`.xxx`, `.porn`, `.sex`, `.adult`) immediately on DNS lookup.
-- 🟢 **100+ Trusted Domain Allowlist**: Built-in whitelist covering major search engines, AI assistants (*ChatGPT, Claude, Gemini, DeepSeek*), educational databases (*Wikipedia, JSTOR, arXiv*), coding platforms (*GitHub, StackOverflow*), and cloud services ensures **zero false positives** on productive websites.
-- 🔄 **Automatic Safe Redirect**: Safely routes blocked traffic directly to DuckDuckGo SafeSearch or your chosen safe homepage.
-- ⚡ **Ultra-Fast Local Storage Caching**: Persists block decisions locally using Userscript API (`GM_setValue`/`GM_getValue`) for instant page loads.
-
----
-
-## 🚀 How to Install & Use
-
-### Step 1: Install a Userscript Manager
-Select your preferred browser extension:
-* **[Tampermonkey](https://www.tampermonkey.net/)** *(Recommended for Chrome, Edge, Firefox, Brave, Safari, Opera)*
-* **[ScriptCat](https://scriptcat.org/)** *(Open-source & modern userscript engine)*
-* **[Violentmonkey](https://violentmonkey.github.io/)** *(Lightweight open-source manager)*
-* **[Greasemonkey](https://www.greasespot.net/)** *(Firefox)*
-
-### Step 2: Install CleanWeb Shield
-Click the installation button below:
-
-<p align="center">
-  <a href="https://raw.githubusercontent.com/deactivated0/cleanweb-shield/main/p.user.js">
-    <img src="https://img.shields.io/badge/👇_CLICK_TO_INSTALL_CLEANWEB_SHIELD-0078D4?style=for-the-badge&logo=javascript&logoColor=white" alt="Install CleanWeb Shield" width="500" />
-  </a>
-</p>
-
-### Step 3: Confirm & Protect
-Your userscript manager will automatically pop up an installation window. Click **Install**, and your protection is instantly active!
-
----
-
-## ⚙️ How It Works (Architecture Overview)
-
-```
-[ Incoming Web Page Request ]
-              │
-              ▼
-   Is Domain in Safe Allowlist? ──► YES ──► [ Allow Page Immediately ]
-              │
-             NO
-              ▼
-   Is TLD Dangerous (.xxx/.porn)? ─► YES ──► [ Block & Redirect ]
-              │
-             NO
-              ▼
-   Calculate Threat Score:
-   ├── Page Title & Meta Keywords
-   ├── URL Path Patterns & Subdomains
-   ├── Text Density & Leetspeak Obfuscation
-   └── Hidden Chatroom & Adult Overlay Detection
-              │
-              ▼
-   Threat Score >= Threshold? ───► YES ──► [ Save Local Cache & Safe Redirect ]
-              │
-             NO
-              ▼
-       [ Allow Access ]
+```text
+Incoming page
+    │
+    ├─ Strict safe host ────────────────────────────────► Allow
+    │
+    ├─ Previously blocked host ─────────────────────────► Redirect
+    │
+    ├─ Known adult domain, risky host, or adult TLD ───► Redirect
+    │
+    ├─ Explicit title or URL score reaches threshold ──► Redirect
+    │
+    ├─ Content score reaches threshold ────────────────► Redirect
+    │
+    └─ Otherwise, watch major changes briefly ─────────► Allow
 ```
 
----
+On a blocked page, CleanWeb Shield stops loading when possible, records the host locally, and redirects to DuckDuckGo.
 
-## 🌐 Browser & Platform Compatibility
+## ⚙️ Detection layers
 
-| Operating System / Device | Browser | Supported Extension | Status |
-| :--- | :--- | :--- | :---: |
-| **Windows / macOS / Linux** | Google Chrome | Tampermonkey / ScriptCat / Violentmonkey | ✅ Active |
-| **Windows / macOS / Linux** | Mozilla Firefox | Tampermonkey / Violentmonkey / Greasemonkey | ✅ Active |
-| **Windows / macOS / Linux** | Brave Browser | Tampermonkey / ScriptCat | ✅ Active |
-| **Windows / macOS / Linux** | Microsoft Edge | Tampermonkey / ScriptCat | ✅ Active |
-| **Windows / macOS / Linux** | Opera / Vivaldi | Tampermonkey / Violentmonkey | ✅ Active |
-| **Android / Mobile** | Kiwi Browser / Firefox Nightly | Tampermonkey / ScriptCat / Violentmonkey | ✅ Active |
+| Layer | What it checks | Performance strategy |
+| --- | --- | --- |
+| Host classification | Safe hosts, trusted hosts, adult TLDs, known domains, risky labels | Cached string lookup and compact regular expressions |
+| URL scan | Path, query, and hash | Runs before DOM scanning and exits early |
+| Title scan | Initial title and title changes | Small targeted scan with a dedicated observer |
+| Content scan | Metadata, image labels, and visible body text | Bounded input and threshold-based early exit |
+| Dynamic scan | Major DOM additions during initial loading or SPA updates | Debounced, limited to six scans, stopped after 20 seconds |
+| Blacklist | Locally stored blocked hosts | In-memory `Set` after one storage load |
 
----
+## 🔧 Configuration
 
-## 🛠️ Configuration & Customization
-
-You can easily adjust sensitivity thresholds or changing the redirect destination by editing `p.user.js` in your extension editor:
+Edit these constants near the top of `p.user.js`:
 
 ```javascript
-const REDIRECT_URL = 'https://duckduckgo.com/'; // Redirect URL for blocked sites
-const BLOCK_THRESHOLD = 6;                       // Overall score sensitivity (lower = stricter)
-const CONTENT_THRESHOLD = 18;                    // Body text keyword sensitivity threshold
+const REDIRECT_URL = 'https://duckduckgo.com/';
+const BLOCK_THRESHOLD = 6;
+const CONTENT_THRESHOLD = 18;
+const TRUSTED_CONTENT_THRESHOLD = 30;
+const TITLE_THRESHOLD = 5;
+const PATH_THRESHOLD = 5;
+const WATCH_TIME = 20000;
 ```
 
----
+Lower thresholds make the filter stricter but increase false-positive risk. Higher thresholds reduce false positives but may miss less-obvious explicit pages.
 
-## 🔒 Security & Privacy Commitments
+Host rules are separated into two tiers:
 
-- **100% Client-Side Processing**: Every scan and decision occurs entirely within your browser engine.
-- **Zero Third-Party Telemetry**: CleanWeb Shield does not collect, store, or transmit your browsing history to external servers.
-- **Open-Source Integrity**: Full transparency with 100% readable source code.
+- `SAFE_HOSTS` bypass content scanning. Reserve this tier for sites whose full domain tree should always remain accessible.
+- `TRUSTED_HOSTS` receive higher thresholds but are still scanned. Use this tier for search engines, social networks, media sites, hosting platforms, and other user-generated services.
 
----
+Do not add broad hosting, social, search, or file-sharing platforms to `SAFE_HOSTS`, because one safe root domain can host explicit user content.
 
-## 🔍 Search Keywords & SEO Tags
+## 🌐 Compatibility
 
-`cleanweb-shield` • `adult-content-blocker` • `nsfw-blocker` • `family-shield` • `safe-browsing` • `parental-controls` • `tampermonkey-script` • `scriptcat` • `violentmonkey` • `greasemonkey` • `userscript` • `focus-guard` • `nofap-blocker` • `porn-blocker` • `content-filter` • `browser-extension` • `anti-porn` • `chrome-blocker` • `firefox-blocker` • `safe-search`
+CleanWeb Shield is a standard userscript and is intended for modern browsers that support `MutationObserver`, Unicode-aware regular expressions, `async`/`await`, and a userscript manager implementing `GM_getValue` and `GM_setValue`.
 
----
+Test installation in your exact browser and userscript manager. Mobile extension support varies by browser and operating system.
+
+## 🔒 Privacy and limitations
+
+- All scoring happens inside the browser.
+- No browsing history, page text, or detection results are transmitted by this script.
+- Block decisions are stored only through the userscript manager's local value storage.
+- CleanWeb Shield is a heuristic page filter, not a DNS filter, antivirus, malware scanner, image classifier, or complete parental-control system.
+- No content filter can guarantee perfect detection or zero false positives. Review the thresholds and host lists for your environment.
+- For stronger device-wide protection, combine the userscript with operating-system parental controls, enforced SafeSearch, and a family-filtering DNS service.
+
+## 🤝 Contributing
+
+Issues and pull requests are welcome at the [GitHub repository](https://github.com/deactivated0/cleanweb-shield).
+
+When proposing a host rule, specify whether it belongs in `SAFE_HOSTS`, `TRUSTED_HOSTS`, or the adult-domain detector, and explain the false-positive risk.
 
 ## 📝 License
 
-Distributed under the open-source **[MIT License](LICENSE)**. Free for personal, commercial, and educational use.
+Distributed under the [MIT License](LICENSE). Free for personal, educational, and commercial use under the license terms.
 
 ---
 
 <p align="center">
-  Maintained with ❤️ by <a href="https://github.com/deactivated0"><strong>deactivated0</strong></a>
+  Maintained by <a href="https://github.com/deactivated0"><strong>deactivated0</strong></a>
 </p>
