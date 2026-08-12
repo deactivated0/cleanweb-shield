@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CleanWeb Shield | Smart Family Safeguard & Content Filter
 // @namespace    https://github.com/deactivated0/
-// @version      2.0.0
+// @version      2.0.1
 // @description  Lightweight family-safe content filter with trusted-site handling, weighted multilingual detection, SPA support, and temporary blacklisting.
 // @author       https://github.com/deactivated0/
 // @match        *://*/*
