@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         CleanWeb Shield | Smart Family Safeguard & Content Filter
 // @namespace    https://github.com/deactivated0/
-// @version      2.0.1
-// @description  Lightweight family-safe content filter with trusted-site handling, weighted multilingual detection, SPA support, and temporary blacklisting.
+// @version      2.1.1
+// @description  Lightweight family-safe content filter with redirect-loop protection, broad trusted-site handling, weighted multilingual detection, SPA support, and temporary blacklisting.
 // @author       https://github.com/deactivated0/
 // @match        *://*/*
 // @run-at       document-start
@@ -19,6 +19,7 @@
   globalThis[INIT] = 1;
 
   const REDIRECT_URL = 'https://duckduckgo.com/';
+  const REDIRECT_HOST = new URL(REDIRECT_URL).hostname.toLowerCase();
   const BL_KEY = 'pornblocker-blacklist';
   const BL_VER = '5';
   const EXPIRE = 2592000000;
@@ -48,7 +49,8 @@
     'apple.com|microsoft.com|adobe.com|intel.com|amd.com|nvidia.com|ibm.com|samsung.com|sony.com|asus.com|gigabyte.com|msi.com|lenovo.com|dell.com|hp.com|acer.com|qualcomm.com|mediatek.com|raspberrypi.com|' +
     'cloudflare.com|digitalocean.com|linode.com|akamai.com|aws.amazon.com|azure.microsoft.com|cloud.google.com|firebase.google.com|vercel.com|netlify.com|heroku.com|render.com|supabase.com|' +
     'paypal.com|stripe.com|wise.com|visa.com|mastercard.com|americanexpress.com|westernunion.com|worldbank.org|imf.org|oecd.org|' +
-    'proton.me|protonmail.com|signal.org|firefox.com|opera.com|vivaldi.com|zoom.us|openai.com|anthropic.com|deepmind.google|huggingface.co|kaggle.com|pytorch.org|tensorflow.org|jupyter.org|colab.research.google.com|overleaf.com|grammarly.com|deepl.com|translate.google.com|maps.google.com|earth.google.com|scholar.google.com|books.google.com|fonts.google.com|patents.google.com|';
+    'proton.me|protonmail.com|signal.org|firefox.com|opera.com|vivaldi.com|zoom.us|openai.com|anthropic.com|deepmind.google|huggingface.co|kaggle.com|pytorch.org|tensorflow.org|jupyter.org|colab.research.google.com|overleaf.com|grammarly.com|deepl.com|translate.google.com|maps.google.com|earth.google.com|scholar.google.com|books.google.com|fonts.google.com|patents.google.com|' +
+    'duckduckgo.com|duck.com|aliexpress.com|';
 
   const TRUSTED_HOSTS =
     '|google.com|bing.com|duckduckgo.com|brave.com|ecosia.org|qwant.com|startpage.com|you.com|yahoo.com|baidu.com|yandex.com|naver.com|daum.net|so.com|sogou.com|sm.cn|ask.com|aol.com|searx.me|' +
@@ -58,7 +60,31 @@
     'dropbox.com|drive.google.com|onedrive.live.com|box.com|mega.io|pcloud.com|icloud.com|docs.google.com|sheets.google.com|slides.google.com|mail.google.com|calendar.google.com|meet.google.com|classroom.google.com|' +
     'archive.org|wordpress.com|wordpress.org|blogger.com|blogspot.com|medium.com|substack.com|notion.so|notion.site|evernote.com|trello.com|asana.com|todoist.com|slack.com|discordapp.com|github.io|gitlab.io|replit.com|fandom.com|' +
     'amazon.com|ebay.com|etsy.com|walmart.com|aliexpress.com|alibaba.com|target.com|bestbuy.com|ikea.com|booking.com|airbnb.com|tripadvisor.com|expedia.com|skyscanner.com|kayak.com|uber.com|lyft.com|' +
-    'netflix.com|disneyplus.com|hulu.com|max.com|primevideo.com|paramountplus.com|peacocktv.com|crunchyroll.com|imdb.com|rottentomatoes.com|goodreads.com|steamcommunity.com|steampowered.com|epicgames.com|xbox.com|playstation.com|itch.io|deviantart.com|artstation.com|pixiv.net|flickr.com|imgur.com|mastodon.social|bsky.app|';
+    'netflix.com|disneyplus.com|hulu.com|max.com|primevideo.com|paramountplus.com|peacocktv.com|crunchyroll.com|imdb.com|rottentomatoes.com|goodreads.com|steamcommunity.com|steampowered.com|epicgames.com|xbox.com|playstation.com|itch.io|deviantart.com|artstation.com|pixiv.net|flickr.com|imgur.com|mastodon.social|bsky.app|' +
+    'kagi.com|mojeek.com|swisscows.com|searchencrypt.com|search.brave.com|marginalia.nu|wiby.me|stract.com|searx.space|' +
+    'chat.openai.com|ai.google.dev|makersuite.google.com|notebooklm.google.com|huggingface.co|replicate.com|ollama.com|lmstudio.ai|cursor.com|windsurf.com|v0.dev|lovable.dev|bolt.new|' +
+    'linkedin.com|indeed.com|glassdoor.com|ziprecruiter.com|monster.com|wellfound.com|upwork.com|fiverr.com|freelancer.com|peopleperhour.com|remoteok.com|weworkremotely.com|' +
+    'whatsapp.com|web.whatsapp.com|messenger.com|teams.microsoft.com|webex.com|skype.com|element.io|matrix.org|zulip.com|mattermost.com|meet.jit.si|jitsi.org|' +
+    'figma.com|canva.com|miro.com|airtable.com|clickup.com|monday.com|linear.app|basecamp.com|wrike.com|smartsheet.com|calendly.com|doodle.com|typeform.com|jotform.com|loom.com|obsidian.md|logseq.com|anytype.io|craft.do|simplenote.com|' +
+    'office.com|microsoft365.com|outlook.com|live.com|icloud.com|mail.yahoo.com|fastmail.com|hey.com|tuta.com|mailbox.org|zoho.com|proton.me|' +
+    'adobe.com|behance.net|dribbble.com|unsplash.com|pexels.com|pixabay.com|freepik.com|flaticon.com|icons8.com|coolors.co|photopea.com|remove.bg|giphy.com|tenor.com|' +
+    'w3schools.com|geeksforgeeks.org|tutorialspoint.com|javatpoint.com|dev.to|hashnode.com|leetcode.com|hackerrank.com|codewars.com|exercism.org|codesandbox.io|stackblitz.com|jsfiddle.net|codepen.io|glitch.com|railway.app|fly.io|' +
+    'home-assistant.io|tailscale.com|wireguard.com|zerotier.com|openwrt.org|pfsense.org|opnsense.org|proxmox.com|virtualbox.org|vmware.com|qemu.org|winehq.org|protondb.com|flatpak.org|flathub.org|snapcraft.io|appimage.org|portableapps.com|' +
+    'virustotal.com|haveibeenpwned.com|urlscan.io|securityheaders.com|ssllabs.com|privacyguides.org|eff.org|torproject.org|malwarebytes.com|bitwarden.com|1password.com|keepass.info|' +
+    'speedtest.net|fast.com|cloudflare.com|downforeveryoneorjustme.com|downdetector.com|isitdownrightnow.com|archive.ph|web.archive.org|pastebin.com|gist.github.com|tinyurl.com|bitly.com|' +
+    'newegg.com|bhphotovideo.com|microcenter.com|costco.com|homedepot.com|lowes.com|wayfair.com|shopify.com|temu.com|shein.com|iherb.com|noon.com|jumia.com|flipkart.com|rakuten.com|mercadolibre.com|mercadolivre.com|daraz.com|coupang.com|ozon.ru|' +
+    'amazon.co.uk|amazon.de|amazon.fr|amazon.it|amazon.es|amazon.ca|amazon.com.au|amazon.in|amazon.co.jp|amazon.ae|amazon.sa|amazon.com.tr|amazon.com.br|ebay.co.uk|ebay.de|ebay.fr|ebay.it|ebay.es|ebay.ca|ebay.com.au|' +
+    'ikea.com|decathlon.com|uniqlo.com|zara.com|hm.com|nike.com|adidas.com|puma.com|lego.com|etsy.com|walmart.com|target.com|bestbuy.com|' +
+    'agoda.com|hotels.com|hostelworld.com|vrbo.com|trivago.com|momondo.com|rome2rio.com|thetrainline.com|trainline.com|omio.com|flixbus.com|kiwi.com|maps.apple.com|mapquest.com|openstreetmap.org|mapillary.com|' +
+    'trip.com|travelocity.com|priceline.com|hopper.com|seat61.com|lonelyplanet.com|wikivoyage.org|uber.com|careem.com|bolt.eu|grab.com|' +
+    'weather.com|accuweather.com|weather.gov|metoffice.gov.uk|windy.com|ventusky.com|meteoblue.com|timeanddate.com|worldtimebuddy.com|' +
+    'investopedia.com|tradingview.com|finance.yahoo.com|morningstar.com|marketwatch.com|nasdaq.com|nyse.com|sec.gov|federalreserve.gov|ecb.europa.eu|xe.com|wise.com|revolut.com|paypal.com|stripe.com|' +
+    'pcpartpicker.com|rtings.com|notebookcheck.net|tomshardware.com|anandtech.com|techpowerup.com|gsmarena.com|ifixit.com|xda-developers.com|arstechnica.com|theverge.com|wired.com|techcrunch.com|' +
+    'gog.com|ea.com|ubisoft.com|nintendo.com|battle.net|riotgames.com|minecraft.net|roblox.com|nexusmods.com|moddb.com|pcgamingwiki.com|ign.com|gamespot.com|polygon.com|gamefaqs.gamespot.com|' +
+    'alltrails.com|strava.com|komoot.com|fitbit.com|garmin.com|myfitnesspal.com|headspace.com|calm.com|sleepfoundation.org|' +
+    'pubmed.ncbi.nlm.nih.gov|clinicaltrials.gov|cochranelibrary.com|merckmanuals.com|drugs.com|rxlist.com|zocdoc.com|healthgrades.com|' +
+    'coursera.org|edx.org|udacity.com|skillshare.com|masterclass.com|pluralsight.com|open.edu|futurelearn.com|saylor.org|ocw.mit.edu|academia.edu|orcid.org|researchrabbit.ai|connectedpapers.com|' +
+    'instructables.com|wikihow.com|allrecipes.com|seriouseats.com|bbcgoodfood.com|foodnetwork.com|epicurious.com|ikeahackers.net|archiveofourown.org|royalroad.com|webtoons.com|mangaplus.shueisha.co.jp|';
 
   const DANGEROUS_TLD = /^(?:xxx|porn|sex|adult)$/;
   const KNOWN_ADULT_HOST = /(?:pornhub|xvideos?|redtube|xnxx|xhamster|youporn|spankbang|eporner|tnaflix|tube8|drtuber|youjizz|beeg|motherless|thumbzilla|keezmovies|empflix|nuvid|hclips|hotmovs|hqporner|porntrex|porndig|pornone|pornhd|sunporno|txxx|pornpics|imagefap|theporndude|redgifs|fapello|erome|missav|javhd|javlibrary|javguru|javmost|javdb|javbus|supjav|jable|nhentai|hanime|hentaihaven|hentaifox|hentai2read|ehentai|exhentai|rule34|gelbooru|danbooru|onlyfans|fansly|manyvids|myfreecams|chaturbate|stripchat|bongacams|livejasmin|camsoda|flirt4free|cam4|brazzers|bangbros|realitykings|naughtyamerica|teamskeet|mofos|digitalplayground|vixen|tushy|blacked|adulttime|literotica|fetlife|f95zone|kemono|coomer|simpcity|adultfriendfinder|omegle|ometv|umingle|chatrandom|chatroulette|coomeet|emeraldchat|shagle|dirtyroulette|flingster|bazoocam|flirtymania)/i;
@@ -95,6 +121,9 @@
   function hostClass(host) {
     if (host === cachedHost) return cachedHostClass;
     cachedHost = host;
+    // Never scan or blacklist the redirect destination. Otherwise a blocked
+    // results page can redirect to itself forever, appearing as constant refreshes.
+    if (host === REDIRECT_HOST || host.endsWith('.' + REDIRECT_HOST)) return cachedHostClass = 1;
     const tld = host.slice(host.lastIndexOf('.') + 1);
     if (tld === 'edu' || tld === 'gov' || tld === 'mil' || listed(SAFE_HOSTS, host)) return cachedHostClass = 1;
     return cachedHostClass = listed(TRUSTED_HOSTS, host) ? 2 : 0;
