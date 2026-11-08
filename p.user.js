@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CleanWeb Shield | Smart Family Safeguard & Content Filter
 // @namespace    https://github.com/deactivated0/
-// @version      2.1.1
+// @version      2.1.2
 // @description  Lightweight family-safe content filter with redirect-loop protection, broad trusted-site handling, weighted multilingual detection, SPA support, and temporary blacklisting.
 // @author       https://github.com/deactivated0/
 // @match        *://*/*
@@ -53,7 +53,7 @@
     'duckduckgo.com|duck.com|aliexpress.com|';
 
   const TRUSTED_HOSTS =
-    '|google.com|bing.com|duckduckgo.com|brave.com|ecosia.org|qwant.com|startpage.com|you.com|yahoo.com|baidu.com|yandex.com|naver.com|daum.net|so.com|sogou.com|sm.cn|ask.com|aol.com|searx.me|' +
+    '|google.com|bing.com|youtube.com|discord.com|x.com|reddit.com|duckduckgo.com|brave.com|ecosia.org|qwant.com|startpage.com|you.com|yahoo.com|baidu.com|yandex.com|naver.com|daum.net|so.com|sogou.com|sm.cn|ask.com|aol.com|searx.me|' +
     'chatgpt.com|claude.ai|gemini.google.com|copilot.microsoft.com|meta.ai|perplexity.ai|mistral.ai|x.ai|deepseek.com|character.ai|poe.com|groq.com|cohere.com|openrouter.ai|together.ai|fireworks.ai|phind.com|' +
     'youtube.com|youtu.be|vimeo.com|dailymotion.com|twitch.tv|reddit.com|old.reddit.com|facebook.com|instagram.com|threads.net|x.com|twitter.com|tiktok.com|pinterest.com|snapchat.com|tumblr.com|discord.com|telegram.org|t.me|vk.com|weibo.com|douyin.com|zhihu.com|quora.com|' +
     'spotify.com|genius.com|music.apple.com|music.youtube.com|soundcloud.com|bandcamp.com|tidal.com|deezer.com|music.amazon.com|pandora.com|qobuz.com|audiomack.com|musixmatch.com|last.fm|discogs.com|musicbrainz.org|rateyourmusic.com|allmusic.com|beatport.com|traxsource.com|iheart.com|tunein.com|azlyrics.com|songlyrics.com|setlist.fm|distrokid.com|tunecore.com|cdbaby.com|splice.com|looperman.com|music.yandex.ru|y.qq.com|music.163.com|anghami.com|jiosaavn.com|gaana.com|' +
